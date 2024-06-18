@@ -38,10 +38,15 @@ class LibraryList(LoginRequiredMixin, ListView):
 
     model = Book
     context_object_name = 'books'   
-    def get_context_data(self, **kwargs):
-      context = super().get_context_data(**kwargs)
-      context['books'] = Book.objects.filter(user=None)
-      return context
+    # def get_context_data(self, **kwargs):
+    #   context = super().get_context_data(**kwargs)
+    #   context['books'] = Book.objects.filter(user=None)
+    #   return context
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            return Book.objects.filter(title__icontains=query, user=None)
+        return Book.objects.filter(user=None)
     
 class BookDetail(LoginRequiredMixin, DetailView):
     model = Book

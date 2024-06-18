@@ -7,7 +7,12 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
+
     {% if request.user.is_authenticated %}
+        <div class="header">
+            <h1><a href="{% url 'books' %}">Library of Georgia</a></h1>
+            
+        </div>
         <p>Welcome {{ request.user }}!</p>
         <a href="{% url 'my_books' %}" id = "mybooks">My books</a>
         <form method="POST" action="{% url 'logout' %}">
@@ -20,12 +25,19 @@
 
     <hr>
 
-    <h1>Library of Georgia</h1>
+    
     
     {% if request.user.is_superuser %}
         <p><a href="{% url 'book_add' %}">Add a new book</a></p>
     {% endif %}
     
+    <div class="search-container">
+        <form method="GET" action="{% url 'books' %}">
+            <input type="text" name="q" placeholder="Search books...">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
     <h2>All books in Library:</h2>
     <table>
         <thead>

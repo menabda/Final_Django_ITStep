@@ -127,6 +127,7 @@ form input, form textarea, form select {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    margin: auto;
 }
 
 form button {
@@ -156,4 +157,50 @@ p a {
 
 p a:hover {
     text-decoration: underline;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h1 {
+    margin: 0;
+}
+
+.header p {
+    margin: 0;
+}
+
+.search-container {
+    margin-bottom: 20px;
+}
+
+.search-container form {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 10px;
+}
+
+.search-container input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    flex-grow: 1;
+    margin: 0 auto;
+    width: 50%;
+}
+
+.search-container button {
+    padding: 8px 16px;
+    border: 1px solid #4CAF50;
+    border-radius: 0 5px 5px 0;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+.search-container button:hover {
+    background-color: #45a049;
 }
