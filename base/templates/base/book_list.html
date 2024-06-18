@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Library of Georgia</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    {% if request.user.is_authenticated %}
+        <p>Welcome {{ request.user }}!</p>
+        <a href="{% url 'my_books' %}" id = "mybooks">My books</a>
+        <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+    {% else %} 
+        <p><a href="{% url 'login' %}">Login</a></p> 
+    {% endif %}
+
+    <hr>
+
+    <h1>Library of Georgia</h1>
+    
+    {% if request.user.is_superuser %}
+        <p><a href="{% url 'book_add' %}">Add a new book</a></p>
+    {% endif %}
+    
+    <h2>All books in Library:</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Details</th>
+                {% if request.user.is_superuser %}
+                    <th>Edit</th>
+                    <th>Delete</th>
+                {% endif %}
+                <th>Borrow</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+                <tr>
+                    <td>{{ book.title }}</td>
+                    <td><a href="{% url 'book' book.id %}">Details >></a></td>
+                    {% if request.user.is_superuser %}
+                        <td><a href="{% url 'book_update' book.id %}">Edit</a></td>
+                        <td><a href="{% url 'book_delete' book.id %}">Delete</a></td>
+                    {% endif %}
+                    <td>
+                        <form method="post" action="/borrow/">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{ book.id }}" name="book_id"/>
+                            <button type="submit">Borrow</button>
+                        </form>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="{% if request.user.is_superuser %}5{% else %}3{% endif %}">No Books in Library</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

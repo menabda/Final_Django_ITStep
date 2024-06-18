@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Book{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Book Update Form</h1>
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Update Book</button>
+  </form>
+
+  <br>
+  <p><a href="{% url 'books' %}">Go Back</a></p>
+</div>
+{% endblock %}

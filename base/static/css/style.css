@@ -1,0 +1,159 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+
+h1 {
+    text-align: center;
+    color: #4CAF50;
+    margin: 20px 0;
+    font-size: 2.5em;
+}
+
+
+h2 {
+    text-align: center;
+    color: #4CAF50;
+    margin: 20px 0;
+    font-size: 2em;
+}
+
+p, a {
+    text-align: center;
+    font-size: 1.4em;
+}
+#mybooks {
+    text-align: center;
+    margin: 20px 0;
+    display: block;
+}
+a {
+    color: #4CAF50;
+    text-decoration: none;
+    text-align: center;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+
+form {
+    display: inline-block;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+
+hr {
+    border: 1px solid #4CAF50;
+    margin: 20px 0;
+}
+
+
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-top: 50px;
+}
+
+
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+form p {
+    margin-bottom: 10px;
+}
+
+form input, form textarea, form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1em;
+    align-self: center;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
+
+
+p a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-size: 1em;
+    display: inline-block;
+    margin-top: 20px;
+    text-align: center;
+}
+
+p a:hover {
+    text-decoration: underline;
+}

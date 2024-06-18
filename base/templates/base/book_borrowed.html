@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Borrowed Books{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Borrowed Books:</h1>
+
+    <a href="{% url 'books' %}">&lt;&lt; Go back</a>
+    <br><br><br>
+
+    {% if books %}
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Action</th>
+            </tr>
+            {% for book in books %}
+            <tr>
+                <td>{{ book.title }}</td>
+                <td>
+                    <form method="post" action="/return/">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{ book.id }}" name="book_id"/>
+                        <button type="submit">Return</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>You do not have borrowed books.</p>
+    {% endif %}
+</div>
+{% endblock %}

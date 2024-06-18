@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Book{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3>Delete Book</h3>
+
+    <a href="{% url 'books' %}">&lt;&lt; Go back</a>
+    <br><br>
+
+    <form method="POST">
+        {% csrf_token %}
+        <p>Are you sure you want to remove the book from the Library?</p>
+        <input type="submit" value="Delete" />
+    </form>
+</div>
+{% endblock %}
