@@ -48,6 +48,7 @@
                     <th>Edit</th>
                     <th>Delete</th>
                 {% endif %}
+                <th>Quantity</th>
                 <th>Borrow</th>
             </tr>
         </thead>
@@ -61,11 +62,18 @@
                         <td><a href="{% url 'book_delete' book.id %}">Delete</a></td>
                     {% endif %}
                     <td>
+                        {{ book.quantity }}
+                    </td>
+                    <td>
+                        {% if book.borrowed or book.quantity == 0 %}
+                            Borrowed
+                        {% else %}
                         <form method="post" action="/borrow/">
                             {% csrf_token %}
                             <input type="hidden" value="{{ book.id }}" name="book_id"/>
                             <button type="submit">Borrow</button>
                         </form>
+                        {% endif %}
                     </td>
                 </tr>
             {% empty %}

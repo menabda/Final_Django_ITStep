@@ -38,15 +38,18 @@ class LibraryList(LoginRequiredMixin, ListView):
 
     model = Book
     context_object_name = 'books'   
-    # def get_context_data(self, **kwargs):
-    #   context = super().get_context_data(**kwargs)
-    #   context['books'] = Book.objects.filter(user=None)
-    #   return context
     def get_queryset(self):
         query = self.request.GET.get('q')
         if query:
-            return Book.objects.filter(title__icontains=query, user=None)
-        return Book.objects.filter(user=None)
+            return Book.objects.filter(title__icontains=query)
+        else:
+           return Book.objects.all()
+        
+    def get_context_data(self, **kwargs):
+      context = super().get_context_data(**kwargs)
+      for book in context['books']:
+         book.borrowed = book.belongs_to_user(self.request.user)
+      return context
     
 class BookDetail(LoginRequiredMixin, DetailView):
     model = Book
@@ -120,7 +123,8 @@ class BorrowedBooksPage(LoginRequiredMixin, ListView):
 
   def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
-    context['books'] = Book.objects.filter(user=self.request.user)
+    context['books'] = Book.objects.filter(user__id=self.request.user.id)
+    
     return context
   
   
@@ -128,8 +132,9 @@ class BurrowBookView(LoginRequiredMixin, View):
   def post(self, request):
     book_id = request.POST.get('book_id')
     book = Book.objects.get(pk=book_id)
-    if not book.user:
-       book.user = request.user
+    if book.quantity and request.user not in book.user.all():
+       book.user.add(request.user)
+       book.quantity -= 1
        book.save()
     return redirect(reverse_lazy('my_books'))
   
@@ -138,8 +143,9 @@ class ReturnBookView(LoginRequiredMixin, View):
   def post(self, request):
     book_id = request.POST.get('book_id')
     book = Book.objects.get(pk=book_id)
-    if book.user and book.user == request.user:
-       book.user = None
+    if request.user in book.user.all():
+       book.user.remove(request.user)
+       book.quantity += 1
        book.save()
     return redirect(reverse_lazy('my_books'))
      
